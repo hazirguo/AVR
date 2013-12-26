@@ -90,7 +90,7 @@ void Write_Place_xy(uchar x, uchar y)
 			break;		
 	}
 	
-	address += x;
+	address += y;
 	
 	Write_Com(address);
 }
