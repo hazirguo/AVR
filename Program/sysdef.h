@@ -9,8 +9,8 @@
 #ifndef MACRO_H_
 #define MACRO_H_
 
-#define FIVE_SECONDS	5*60
-#define FIVE_MININUTES	5*60*60
+#define FIVE_SECONDS	5  //*60
+#define FIVE_MININUTES	5*6 //0*60
 
 typedef unsigned char uchar;
 typedef unsigned int uint;

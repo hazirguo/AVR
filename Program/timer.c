@@ -20,23 +20,24 @@ void timer_init()
 	//		WGM01:0	-- Waveform Generation Mode
 	//		COM01:0	-- Compare Match Output Mode
 	//		CS02:0	-- Clock Select
-	TCCR0 = 0x0C;
+	TCCR0 = 0x0D;		//   7372800/1024 = 7200Hz
 	TCNT0 = 0x00;
-	OCR0  = 43;		//1ms
+	OCR0  = 200;		//   1/36s
 	TIMSK = 0x02;	//enable t/c0 compare interrupt
 }
-
 
 //时间中断, 1ms 进入中断
 ISR(TIMER0_COMP_vect)
 {
 	static uint i = 0;
+	TCNT0 = 0;		//清零
 	i++;
 	
 	// 1 s
-	if (i >= 1000) {
+	if (i >= 36) {
 		
 		i = 0;
+		
 		time_count--;
 		
 		switch(cur_state) {
@@ -47,7 +48,7 @@ ISR(TIMER0_COMP_vect)
 			
 			//倒计时结束
 			if(time_count == 0) {
-				stop_work_mode(work_mode);		//停止工作状态
+				stop_work_mode(work_mode);		//停止工作状态			
 				cur_state = SYS_INTERIM;
 				time_count = FIVE_MININUTES;	//五分钟倒计时
 			}
@@ -71,5 +72,6 @@ ISR(TIMER0_COMP_vect)
 			break;
 			
 		} //end of 'switch(cur_state)'...
+		
 	} //end of 'if(i>=1000)'...
 }

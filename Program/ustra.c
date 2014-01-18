@@ -9,9 +9,9 @@
 
 // BAUD = fosc/16(UBRR+1)
 //  =>  UBRR = fosc/16BAUD - 1
-#define FOSC        11059200                //clock speed
+#define FOSC        7372800                 //clock speed
 #define BAUD        9600                    //baud
-#define MYUBRR      FOSC/16/BAUD - 1        //ubrr
+#define MYUBRR      (FOSC/16/BAUD - 1)        //ubrr
 
 void ustra_init()
 {
@@ -24,7 +24,7 @@ void ustra_init()
 	
 	//UCSRB
 	//	 RXCIE  TXCIE   UDRIE   RXEN  TXEN  UCSZ2  RXB8  TXB8
-	UCSRB = (1 << RXEN) | (1 << TXEN);        //Receive & Transmit Enabled, RX interrupted enabled
+	UCSRB = (1 << RXEN) | (1 << TXEN);        //Receive & Transmit Enabled
 	
 	//UCSRC
 	//   URSEL  UMSEL  UPM1  UPM0   USBS   UCSZ1   UCSZ0   UCPOL
